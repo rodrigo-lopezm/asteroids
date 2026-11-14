@@ -5,13 +5,19 @@ import player
 
 
 def main():
+    #Set groups:
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}\nScreen height: {SCREEN_HEIGHT}")
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     Clock = pygame.time.Clock()
     dt : float = 0.0
+    player.Player.containers = (drawable,updatable)
     Player = player.Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+
     #Game loop
     while True:
         log_state()
@@ -22,8 +28,10 @@ def main():
 
         #Screen rendering
         screen.fill("black")
-        Player.update(dt)
-        Player.draw(screen)
+        for obj in updatable:
+            obj.update(dt)
+        for obj in drawable:
+            obj.draw(screen)
         pygame.display.flip()
 
         #Delta time calculation
