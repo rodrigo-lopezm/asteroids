@@ -49,6 +49,12 @@ def main():
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
+
+            for sht in shots:
+                if sht.collides_with(obj):
+                    log_event("asteroid_shot")
+                    sht.kill()
+                    obj.split()
         pygame.display.flip()
 
         #Delta time calculation
